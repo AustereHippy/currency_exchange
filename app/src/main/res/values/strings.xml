@@ -1,3 +1,8 @@
 <resources>
     <string name="app_name">CurrencyExchange</string>
+
+    <string name="currency_exchange_title">Курсы валют</string>
+    <string name="currency_settings_title">Настройка валют</string>
+    <string name="currency_settings_save">Сохранить</string>
+
 </resources>

@@ -6,6 +6,15 @@ apply plugin: 'kotlin-kapt'
 android {
     compileSdkVersion 29
 
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+    }
+
+    kotlinOptions {
+        jvmTarget = "1.8"
+    }
+
     defaultConfig {
         applicationId "com.test.currencyexchange"
         minSdkVersion 21
@@ -26,6 +35,7 @@ android {
 ext {
     retrofitVersion = '2.5.0'
     moxyVersion = '2.1.2'
+    navigationVersion = '2.3.0-alpha06'
 }
 
 dependencies {
@@ -38,6 +48,10 @@ dependencies {
     implementation 'androidx.appcompat:appcompat:1.1.0'
     implementation 'androidx.core:core-ktx:1.2.0'
     implementation 'androidx.constraintlayout:constraintlayout:1.1.3'
+
+    // Navigation
+    implementation "androidx.navigation:navigation-fragment-ktx:${navigationVersion}"
+    implementation "androidx.navigation:navigation-ui-ktx:${navigationVersion}"
 
     // Http
     implementation "com.squareup.retrofit2:retrofit:${retrofitVersion}"
