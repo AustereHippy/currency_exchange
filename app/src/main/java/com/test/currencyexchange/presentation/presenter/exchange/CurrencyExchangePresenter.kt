@@ -1,13 +1,17 @@
 package com.test.currencyexchange.presentation.presenter.exchange
 
 import android.util.Log
+import com.test.currencyexchange.R
+import com.test.currencyexchange.application.system.ResourceManager
 import com.test.currencyexchange.domain.interactor.CurrencyExchangeInteractor
 import com.test.currencyexchange.presentation.presenter.global.BasePresenter
 import java.text.SimpleDateFormat
 import java.util.*
 
-class CurrencyExchangePresenter(private val currencyExchangeInteractor: CurrencyExchangeInteractor) :
-    BasePresenter<CurrencyExchangeView>() {
+class CurrencyExchangePresenter(
+    private val currencyExchangeInteractor: CurrencyExchangeInteractor,
+    private val resourceManager: ResourceManager
+) : BasePresenter<CurrencyExchangeView>() {
 
     private val dateFormat = SimpleDateFormat("dd-MM-yy", Locale.US)
 
@@ -28,7 +32,8 @@ class CurrencyExchangePresenter(private val currencyExchangeInteractor: Currency
                     )
                 )
             }, {
-                viewState.render(CurrencyExchangeViewState.CurrencyErrorState(it.message.toString()))
+                val errorMessage = resourceManager.getString(R.string.currency_exchange_error)
+                viewState.render(CurrencyExchangeViewState.CurrencyErrorState(errorMessage))
                 Log.e(TAG, "error: $it")
             })
             .connect()

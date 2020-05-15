@@ -4,5 +4,6 @@
     <string name="currency_exchange_title">Курсы валют</string>
     <string name="currency_settings_title">Настройка валют</string>
     <string name="currency_settings_save">Сохранить</string>
+    <string name="currency_exchange_error">Не удалось получить курсы валют</string>
 
 </resources>

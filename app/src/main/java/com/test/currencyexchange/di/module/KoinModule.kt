@@ -1,5 +1,6 @@
 package com.test.currencyexchange.di.module
 
+import com.test.currencyexchange.application.system.ResourceManager
 import com.test.currencyexchange.application.system.SchedulerProvider
 import com.test.currencyexchange.data.repository.exchange.CurrencyExchangeRepository
 import com.test.currencyexchange.data.repository.exchange.CurrencyExchangeRepositoryImpl
@@ -22,6 +23,7 @@ object KoinModule {
         factory { SchedulerProvider() }
         single { DatabaseProvider(get()).get() }
         factory { DatabaseDelegate(get()) }
+        factory { ResourceManager(get()) }
     }
 
     val networkModule = module {
@@ -37,7 +39,7 @@ object KoinModule {
     }
 
     val presentationModule = module {
-        factory { CurrencyExchangePresenter(get()) }
+        factory { CurrencyExchangePresenter(get(), get()) }
         factory { CurrencySettingsPresenter(get()) }
     }
 }
