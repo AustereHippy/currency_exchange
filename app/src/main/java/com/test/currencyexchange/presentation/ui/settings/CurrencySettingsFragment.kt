@@ -13,7 +13,7 @@ import com.test.currencyexchange.presentation.presenter.settings.CurrencySetting
 import com.test.currencyexchange.presentation.ui.global.BaseFragment
 import kotlinx.android.synthetic.main.fragment_currency_settings.*
 import moxy.ktx.moxyPresenter
-import org.koin.android.ext.android.inject
+import org.koin.android.ext.android.getKoin
 
 class CurrencySettingsFragment :
     BaseFragment(),
@@ -21,9 +21,7 @@ class CurrencySettingsFragment :
 
     override val layoutRes: Int = R.layout.fragment_currency_settings
 
-    private val currencySettingsPresenter: CurrencySettingsPresenter by inject()
-
-    private val presenter by moxyPresenter { currencySettingsPresenter }
+    private val presenter by moxyPresenter { getKoin().get<CurrencySettingsPresenter>() }
 
     private val currencySettingsAdapter =
         CurrencySettingsAdapter({ currency, position ->
