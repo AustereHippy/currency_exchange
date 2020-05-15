@@ -18,17 +18,23 @@ class CurrencyExchangePresenter(private val currencyExchangeInteractor: Currency
     private fun getCurrenciesExchange() {
         currencyExchangeInteractor
             .getCurrencyExchangeRates()
-            .doOnSubscribe { viewState.setProgress(true) }
-            .doAfterTerminate { viewState.setProgress(false) }
+            .doOnSubscribe { viewState.render(CurrencyExchangeViewState.CurrencyLoadingState) }
             .subscribe({
-                viewState.setCurrencies(it.currencyExchange)
-                viewState.setDates(
-                    dateFormat.format(it.firstDate),
-                    dateFormat.format(it.secondDate)
+                viewState.render(
+                    CurrencyExchangeViewState.CurrencyLoadedState(
+                        dateFormat.format(it.firstDate),
+                        dateFormat.format(it.secondDate),
+                        it.currencyExchange
+                    )
                 )
             }, {
-                Log.e("TEST_TAG", "error: $it")
+                viewState.render(CurrencyExchangeViewState.CurrencyErrorState(it.message.toString()))
+                Log.e(TAG, "error: $it")
             })
             .connect()
+    }
+
+    companion object {
+        private val TAG = this::class.java.simpleName
     }
 }

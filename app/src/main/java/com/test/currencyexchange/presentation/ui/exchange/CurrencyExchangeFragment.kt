@@ -5,10 +5,10 @@ import android.view.View
 import androidx.navigation.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.test.currencyexchange.R
-import com.test.currencyexchange.domain.entity.CurrencyExchangeRateGrouped
 import com.test.currencyexchange.extensions.visible
 import com.test.currencyexchange.presentation.presenter.exchange.CurrencyExchangePresenter
 import com.test.currencyexchange.presentation.presenter.exchange.CurrencyExchangeView
+import com.test.currencyexchange.presentation.presenter.exchange.CurrencyExchangeViewState
 import com.test.currencyexchange.presentation.ui.global.BaseFragment
 import kotlinx.android.synthetic.main.fragment_currency_exchange.*
 import moxy.ktx.moxyPresenter
@@ -59,16 +59,25 @@ class CurrencyExchangeFragment :
         presenter.onResume()
     }
 
-    override fun setCurrencies(currencies: List<CurrencyExchangeRateGrouped>) {
-        currencyExchangeAdapter.setItems(currencies)
-    }
-
-    override fun setProgress(loading: Boolean) {
-        pbExchange.visible(loading)
-    }
-
-    override fun setDates(firstDate: String, secondDate: String) {
-        tvFirstColumnDate.text = firstDate
-        tvSecondColumnDate.text = secondDate
+    override fun render(state: CurrencyExchangeViewState) {
+        when (state) {
+            is CurrencyExchangeViewState.CurrencyLoadingState -> {
+                pbExchange.visible(true)
+            }
+            is CurrencyExchangeViewState.CurrencyEmptyState -> {
+                pbExchange.visible(false)
+            }
+            is CurrencyExchangeViewState.CurrencyErrorState -> {
+                pbExchange.visible(false)
+                showMessage(state.errorMessage)
+                tbCurrencyExchangeToolbar.menu.findItem(R.id.actionSettings).isVisible = false
+            }
+            is CurrencyExchangeViewState.CurrencyLoadedState -> {
+                pbExchange.visible(false)
+                tvFirstColumnDate.text = state.firstDate
+                tvSecondColumnDate.text = state.secondDate
+                currencyExchangeAdapter.setItems(state.currencyExchange)
+            }
+        }
     }
 }

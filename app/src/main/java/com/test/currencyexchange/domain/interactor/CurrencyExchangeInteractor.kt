@@ -21,13 +21,14 @@ class CurrencyExchangeInteractor(
     private val schedulerProvider: SchedulerProvider
 ) {
 
-    fun getCurrencyExchangeRates() =
+    fun getCurrencyExchangeRates(): Single<CurrencyExchangeRates> =
         Single
             .zip(
                 getCurrencyParameters(),
                 getCurrencyExchangeRatesNew(),
-                BiFunction<List<CurrencyParameters>, Pair<List<CurrencyExchangeRate>, List<CurrencyExchangeRate>>,
-                        CurrencyExchangeRates> { params, lists ->
+                BiFunction<List<CurrencyParameters>, Pair<List<CurrencyExchangeRate>,
+                        List<CurrencyExchangeRate>>, CurrencyExchangeRates>
+                { params, lists ->
                     CurrencyExchangeRates(
                         lists.first.first().date,
                         lists.second.first().date,

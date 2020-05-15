@@ -13,13 +13,13 @@ class CurrencySettingsPresenter(private val currencySettingsInteractor: Currency
     override fun onFirstViewAttach() {
         currencySettingsInteractor
             .getCurrencyParameters()
-            .doOnSubscribe { viewState.setProgress(true) }
-            .doAfterTerminate { viewState.setProgress(false) }
+            .doOnSubscribe { viewState.render(CurrencySettingsViewState.CurrencyLoadingState) }
             .subscribe({
                 currencySettings.addAll(it)
-                viewState.setCurrencies(it)
+                viewState.render(CurrencySettingsViewState.CurrencyLoadedState(it))
             }, {
-                Log.e("TEST)TAG", "ERROR: $it")
+                viewState.render(CurrencySettingsViewState.CurrencyErrorState(it.message.toString()))
+                Log.e(TAG, "error: $it")
             })
             .connect()
     }
@@ -27,14 +27,18 @@ class CurrencySettingsPresenter(private val currencySettingsInteractor: Currency
     fun onSaveClicked() {
         currencySettingsInteractor
             .saveCurrencyParameters(currencySettings)
-            .doOnSubscribe { viewState.setProgress(true) }
-            .doAfterTerminate { viewState.setProgress(false) }
+            .doOnSubscribe { viewState.render(CurrencySettingsViewState.CurrencyLoadingState) }
             .subscribe({
-                viewState.exit()
+                viewState.render(CurrencySettingsViewState.CurrencyFinishState)
             }, {
-                Log.e("TEST)TAG", "ERROR: $it")
+                viewState.render(CurrencySettingsViewState.CurrencyErrorState(it.message.toString()))
+                Log.e(TAG, "error: $it")
             })
             .connect()
+    }
+
+    fun onNavigationClicked() {
+        viewState.render(CurrencySettingsViewState.CurrencyFinishState)
     }
 
     fun onCurrencyMoved(currency: CurrencyParameters, newPosition: Int) {
@@ -52,16 +56,19 @@ class CurrencySettingsPresenter(private val currencySettingsInteractor: Currency
             val newItem = oldCurrency?.copy(visible = visible)
             newItem?.let {
                 add(it)
-                viewState.updateCurrency(it)
+                viewState.render(CurrencySettingsViewState.CurrencyUpdateState(it))
             }
         }
     }
 
     fun onRestoreState() {
         if (currencySettings.isNotEmpty()) {
-            val test = currencySettings
-            test.sortBy { it.order }
-            viewState.setCurrencies(test)
+            currencySettings.sortBy { it.order }
+            viewState.render(CurrencySettingsViewState.CurrencyLoadedState(currencySettings))
         }
+    }
+
+    companion object {
+        private val TAG = this::class.java.simpleName
     }
 }

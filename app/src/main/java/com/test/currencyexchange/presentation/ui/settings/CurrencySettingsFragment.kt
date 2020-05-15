@@ -1,16 +1,15 @@
 package com.test.currencyexchange.presentation.ui.settings
 
 import android.os.Bundle
-import android.util.Log
 import android.view.View
 import androidx.navigation.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.test.currencyexchange.R
-import com.test.currencyexchange.domain.entity.CurrencyParameters
 import com.test.currencyexchange.extensions.addVerticalTouchListener
 import com.test.currencyexchange.extensions.visible
 import com.test.currencyexchange.presentation.presenter.settings.CurrencySettingsPresenter
 import com.test.currencyexchange.presentation.presenter.settings.CurrencySettingsView
+import com.test.currencyexchange.presentation.presenter.settings.CurrencySettingsViewState
 import com.test.currencyexchange.presentation.ui.global.BaseFragment
 import kotlinx.android.synthetic.main.fragment_currency_settings.*
 import moxy.ktx.moxyPresenter
@@ -42,14 +41,14 @@ class CurrencySettingsFragment :
                 selectMenuAction(it.itemId)
                 true
             }
-            setNavigationOnClickListener { onNavigationBackClicked() }
+            setNavigationOnClickListener { presenter.onNavigationClicked() }
         }
 
         rvCurrencySettings.apply {
             layoutManager = LinearLayoutManager(view.context)
             adapter = currencySettingsAdapter
         }
-        Log.d("TEST_TAG", "saved inst: $savedInstanceState")
+
         if (savedInstanceState != null) {
             presenter.onRestoreState()
         }
@@ -63,26 +62,28 @@ class CurrencySettingsFragment :
         }
     }
 
-    private fun onNavigationBackClicked() {
-        view?.findNavController()?.popBackStack()
-    }
-
-    override fun setCurrencies(currencies: List<CurrencyParameters>) {
-        currencies.forEach {
-            Log.d("TEST_TAG", "settings: $it")
+    override fun render(state: CurrencySettingsViewState) {
+        when (state) {
+            is CurrencySettingsViewState.CurrencyLoadingState -> {
+                pbSettings.visible(true)
+            }
+            is CurrencySettingsViewState.CurrencyEmptyState -> {
+                pbSettings.visible(false)
+            }
+            is CurrencySettingsViewState.CurrencyLoadedState -> {
+                pbSettings.visible(false)
+                currencySettingsAdapter.setItems(state.currencies)
+            }
+            is CurrencySettingsViewState.CurrencyUpdateState -> {
+                pbSettings.visible(false)
+                currencySettingsAdapter.updateItem(state.currency)
+            }
+            is CurrencySettingsViewState.CurrencyErrorState -> {
+                pbSettings.visible(false)
+            }
+            is CurrencySettingsViewState.CurrencyFinishState -> {
+                view?.findNavController()?.popBackStack()
+            }
         }
-        currencySettingsAdapter.setItems(currencies)
-    }
-
-    override fun updateCurrency(currency: CurrencyParameters) {
-        currencySettingsAdapter.updateItem(currency)
-    }
-
-    override fun setProgress(loading: Boolean) {
-        pbSettings.visible(loading)
-    }
-
-    override fun exit() {
-        view?.findNavController()?.popBackStack()
     }
 }
