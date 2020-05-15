@@ -1,5 +1,6 @@
 package com.test.currencyexchange.extensions
 
+import android.view.View
 import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.RecyclerView
 import com.test.currencyexchange.presentation.ui.global.ItemTouchHelperAdapter
@@ -36,3 +37,7 @@ fun Calendar.today(): Date = time
 fun Calendar.yesterday(): Date = this.apply { add(Calendar.DATE, -1) }.time
 
 fun Calendar.tomorrow(): Date = this.apply { add(Calendar.DATE, 1) }.time
+
+fun View.visible(visible: Boolean) {
+    visibility = if (visible) View.VISIBLE else View.GONE
+}

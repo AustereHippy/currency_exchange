@@ -5,11 +5,14 @@ import moxy.MvpView
 import moxy.viewstate.strategy.AddToEndSingleStrategy
 import moxy.viewstate.strategy.StateStrategyType
 
-interface CurrencyExchangeView: MvpView {
+interface CurrencyExchangeView : MvpView {
 
     @StateStrategyType(AddToEndSingleStrategy::class)
     fun setCurrencies(currencies: List<CurrencyExchangeRateGrouped>)
 
     @StateStrategyType(AddToEndSingleStrategy::class)
     fun setDates(firstDate: String, secondDate: String)
+
+    @StateStrategyType(AddToEndSingleStrategy::class)
+    fun setProgress(loading: Boolean)
 }

@@ -13,6 +13,8 @@ class CurrencySettingsPresenter(private val currencySettingsInteractor: Currency
     override fun onFirstViewAttach() {
         currencySettingsInteractor
             .getCurrencyParameters()
+            .doOnSubscribe { viewState.setProgress(true) }
+            .doAfterTerminate { viewState.setProgress(false) }
             .subscribe({
                 currencySettings.addAll(it)
                 viewState.setCurrencies(it)
@@ -25,6 +27,8 @@ class CurrencySettingsPresenter(private val currencySettingsInteractor: Currency
     fun onSaveClicked() {
         currencySettingsInteractor
             .saveCurrencyParameters(currencySettings)
+            .doOnSubscribe { viewState.setProgress(true) }
+            .doAfterTerminate { viewState.setProgress(false) }
             .subscribe({
                 viewState.exit()
             }, {

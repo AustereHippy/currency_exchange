@@ -6,6 +6,7 @@ import androidx.navigation.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.test.currencyexchange.R
 import com.test.currencyexchange.domain.entity.CurrencyExchangeRateGrouped
+import com.test.currencyexchange.extensions.visible
 import com.test.currencyexchange.presentation.presenter.exchange.CurrencyExchangePresenter
 import com.test.currencyexchange.presentation.presenter.exchange.CurrencyExchangeView
 import com.test.currencyexchange.presentation.ui.global.BaseFragment
@@ -60,6 +61,10 @@ class CurrencyExchangeFragment :
 
     override fun setCurrencies(currencies: List<CurrencyExchangeRateGrouped>) {
         currencyExchangeAdapter.setItems(currencies)
+    }
+
+    override fun setProgress(loading: Boolean) {
+        pbExchange.visible(loading)
     }
 
     override fun setDates(firstDate: String, secondDate: String) {

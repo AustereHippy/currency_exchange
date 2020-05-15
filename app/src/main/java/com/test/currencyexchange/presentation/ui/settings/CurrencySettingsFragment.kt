@@ -6,8 +6,9 @@ import android.view.View
 import androidx.navigation.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.test.currencyexchange.R
-import com.test.currencyexchange.extensions.addVerticalTouchListener
 import com.test.currencyexchange.domain.entity.CurrencyParameters
+import com.test.currencyexchange.extensions.addVerticalTouchListener
+import com.test.currencyexchange.extensions.visible
 import com.test.currencyexchange.presentation.presenter.settings.CurrencySettingsPresenter
 import com.test.currencyexchange.presentation.presenter.settings.CurrencySettingsView
 import com.test.currencyexchange.presentation.ui.global.BaseFragment
@@ -75,6 +76,10 @@ class CurrencySettingsFragment :
 
     override fun updateCurrency(currency: CurrencyParameters) {
         currencySettingsAdapter.updateItem(currency)
+    }
+
+    override fun setProgress(loading: Boolean) {
+        pbSettings.visible(loading)
     }
 
     override fun exit() {

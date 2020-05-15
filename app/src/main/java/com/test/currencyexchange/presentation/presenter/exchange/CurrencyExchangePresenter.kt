@@ -18,6 +18,8 @@ class CurrencyExchangePresenter(private val currencyExchangeInteractor: Currency
     private fun getCurrenciesExchange() {
         currencyExchangeInteractor
             .getCurrencyExchangeRates()
+            .doOnSubscribe { viewState.setProgress(true) }
+            .doAfterTerminate { viewState.setProgress(false) }
             .subscribe({
                 viewState.setCurrencies(it.currencyExchange)
                 viewState.setDates(
