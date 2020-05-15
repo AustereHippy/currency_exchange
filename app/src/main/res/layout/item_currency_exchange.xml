@@ -3,12 +3,16 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content">
+    android:layout_height="wrap_content"
+    android:layout_marginStart="@dimen/size_1"
+    android:layout_marginTop="@dimen/size_0_5"
+    android:layout_marginEnd="@dimen/size_1">
 
     <TextView
         android:id="@+id/tvCharCode"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:textAppearance="@style/F18.Bold"
         app:layout_constraintBottom_toTopOf="@id/tvCurrencyNameAndScale"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
@@ -16,47 +20,54 @@
 
     <TextView
         android:id="@+id/tvCurrencyNameAndScale"
-        android:layout_width="wrap_content"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
+        android:ellipsize="end"
+        android:lines="1"
+        android:textAppearance="@style/F16.Gray"
         app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="@id/guidelineFirstColumn"
+        app:layout_constraintHorizontal_bias="0"
         app:layout_constraintStart_toStartOf="@id/tvCharCode"
         app:layout_constraintTop_toBottomOf="@id/tvCharCode"
         tools:text="1 Доллар США" />
 
     <androidx.constraintlayout.widget.Guideline
-        android:id="@+id/guideline1"
+        android:id="@+id/guidelineFirstColumn"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="vertical"
-        app:layout_constraintGuide_percent="0.45" />
+        app:layout_constraintGuide_percent="0.5" />
 
     <TextView
         android:id="@+id/tvFirstRate"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textAlignment="textStart"
+        android:textAppearance="@style/F16"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toStartOf="@id/guideline2"
+        app:layout_constraintEnd_toStartOf="@id/guidelineSecondColumn"
         app:layout_constraintHorizontal_bias="0"
-        app:layout_constraintStart_toEndOf="@id/guideline1"
+        app:layout_constraintStart_toEndOf="@id/guidelineFirstColumn"
         app:layout_constraintTop_toTopOf="parent"
         tools:text="2.1234" />
 
     <androidx.constraintlayout.widget.Guideline
-        android:id="@+id/guideline2"
+        android:id="@+id/guidelineSecondColumn"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="vertical"
-        app:layout_constraintGuide_percent="0.7" />
+        app:layout_constraintGuide_percent="0.75" />
 
     <TextView
         android:id="@+id/tvSecondRate"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:textAppearance="@style/F16"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0"
-        app:layout_constraintStart_toEndOf="@id/guideline2"
+        app:layout_constraintStart_toEndOf="@id/guidelineSecondColumn"
         app:layout_constraintTop_toTopOf="parent"
         tools:text="2.2345" />
 

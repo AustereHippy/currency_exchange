@@ -16,7 +16,17 @@
             style="@style/Toolbar"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            app:title="@string/currency_exchange_title" />
+            app:menu="@menu/currency_exchange_menu_tb">
+
+            <TextView
+                style="@style/ToolbarTextAppearance"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:paddingStart="@dimen/size_2"
+                android:paddingEnd="0dp"
+                android:text="@string/currency_exchange_title" />
+
+        </androidx.appcompat.widget.Toolbar>
 
     </com.google.android.material.appbar.AppBarLayout>
 
@@ -27,7 +37,7 @@
         <androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/clHeader"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="@dimen/size_4"
             android:background="@color/cyan"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
@@ -38,12 +48,14 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:orientation="vertical"
-                app:layout_constraintGuide_percent="0.45" />
+                app:layout_constraintGuide_percent="0.5" />
 
             <TextView
                 android:id="@+id/tvFirstColumnDate"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:textAppearance="@style/F16"
+                app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintStart_toStartOf="@id/guidelineFirstColumn"
                 app:layout_constraintTop_toTopOf="parent"
                 tools:text="13.05.2020" />
@@ -53,12 +65,14 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:orientation="vertical"
-                app:layout_constraintGuide_percent="0.7" />
+                app:layout_constraintGuide_percent="0.75" />
 
             <TextView
                 android:id="@+id/tvSecondColumnDate"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:textAppearance="@style/F16"
+                app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintStart_toStartOf="@id/guidelineSecondColumn"
                 app:layout_constraintTop_toTopOf="parent"
                 tools:text="14.05.2020" />
@@ -67,8 +81,9 @@
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/rvCurrencyExchange"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/clHeader" />

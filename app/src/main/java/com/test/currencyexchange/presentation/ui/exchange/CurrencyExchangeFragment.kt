@@ -29,7 +29,6 @@ class CurrencyExchangeFragment :
         super.onViewCreated(view, savedInstanceState)
 
         tbCurrencyExchangeToolbar.apply {
-            inflateMenu(R.menu.currency_exchange_menu_tb)
             setOnMenuItemClickListener {
                 selectMenuAction(it.itemId)
                 true

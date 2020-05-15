@@ -36,7 +36,6 @@ class CurrencySettingsFragment :
         super.onViewCreated(view, savedInstanceState)
 
         tbCurrencySettingsToolbar.apply {
-            inflateMenu(R.menu.currency_settings_menu_tb)
             setOnMenuItemClickListener {
                 selectMenuAction(it.itemId)
                 true

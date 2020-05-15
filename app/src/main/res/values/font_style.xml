@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <style name="regular">
+        <item name="android:textColor">@color/black</item>
+    </style>
+
+    <style name="F16" parent="regular">
+        <item name="android:textSize">@dimen/F16_font_size</item>
+    </style>
+
+    <style name="F16.Gray">
+        <item name="android:textColor">@color/gray</item>
+    </style>
+
+    <style name="F18" parent="regular">
+        <item name="android:textSize">@dimen/F18_font_size</item>
+    </style>
+
+    <style name="F18.Bold">
+        <item name="android:textStyle">bold</item>
+    </style>
+
+</resources>
