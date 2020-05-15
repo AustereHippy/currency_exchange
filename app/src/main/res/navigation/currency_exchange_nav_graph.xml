@@ -6,7 +6,7 @@
     app:startDestination="@id/currencyExchangeFragment">
     <fragment
         android:id="@+id/currencyExchangeFragment"
-        android:name="com.test.currencyexchange.ui.currency.CurrencyExchangeFragment"
+        android:name="com.test.currencyexchange.presentation.ui.exchange.CurrencyExchangeFragment"
         android:label="fragment_currency_exchange"
         tools:layout="@layout/fragment_currency_exchange" >
         <action
@@ -15,7 +15,7 @@
     </fragment>
     <fragment
         android:id="@+id/currencySettingsFragment"
-        android:name="com.test.currencyexchange.ui.currency.CurrencySettingsFragment"
+        android:name="com.test.currencyexchange.presentation.ui.settings.CurrencySettingsFragment"
         android:label="fragment_currency_settings"
         tools:layout="@layout/fragment_currency_settings" />
 </navigation>

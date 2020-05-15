@@ -1,4 +1,4 @@
-package com.test.currencyexchange.ui.global
+package com.test.currencyexchange.presentation.ui.global
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle

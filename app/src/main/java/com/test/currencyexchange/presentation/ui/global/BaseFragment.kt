@@ -1,4 +1,4 @@
-package com.test.currencyexchange.ui.global
+package com.test.currencyexchange.presentation.ui.global
 
 import android.os.Bundle
 import android.view.LayoutInflater
